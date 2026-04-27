@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahajalal Hossain Shahin | AI/ML Engineer & Developer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #08090c;
+            --bg-secondary: #111318;
+            --bg-card: #161920;
+            --accent: #e9b13b;
+            --accent-light: #f5c862;
+            --accent-dark: #b8891e;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --text-muted: #6b7280;
+            --border: #252830;
+            --gradient-1: linear-gradient(135deg, #e9b13b 0%, #d49511 100%);
+            --gradient-2: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas particle background */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(8, 9, 12, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            transition: all var(--transition);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            background: rgba(233, 177, 59, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main container */
+        .main-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            padding: 2rem 0 4rem;
+        }
+
+        .hero-image {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .hero-image .img-wrapper {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            position: relative;
+            background: var(--gradient-1);
+            padding: 4px;
+            box-shadow: 0 0 60px rgba(233, 177, 59, 0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background: #1a1d25;
+        }
+
+        .hero-image .fallback-icon {
+            display: none;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #1a1d25;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--accent);
+        }
+
+        .hero-content h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin: 0.5rem 0 1rem;
+            font-weight: 500;
+        }
+
+        .hero-content .bio {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 1.2rem 0;
+            font-size: 1.05rem;
+        }
+
+        .hero-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .hero-contact a, .hero-contact span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color var(--transition);
+        }
+
+        .hero-contact a:hover {
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 2.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(233, 177, 59, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 177, 59, 0.4);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: rgba(233, 177, 59, 0.1);
+        }
+
+        /* Sections */
+        .section {
+            margin: 5rem 0;
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-title i {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+
+        .section-line {
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            margin-top: 0.8rem;
+        }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(233, 177, 59, 0.3);
+        }
+
+        .card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card .meta {
+            color: #4facfe;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .card .links {
+            margin-top: 1.2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .card .links a {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 2rem;
+            background: rgba(233,177,59,0.08);
+            transition: all var(--transition);
+        }
+
+        .card .links a:hover {
+            background: rgba(233,177,59,0.2);
+            color: var(--accent-light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .badge-kaggle { background: rgba(79, 195, 247, 0.15); color: #4fc3f7; }
+        .badge-notebook { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+        .badge-github { background: rgba(233, 177, 59, 0.15); color: #e9b13b; }
+        .badge-research { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+
+        /* Skills as bars */
+        .skill-group {
+            margin-bottom: 1.8rem;
+        }
+        .skill-group h4 {
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        .skill-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .skill-pill {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+        }
+        .skill-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(233,177,59,0.08);
+        }
+
+        /* Language dots */
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 0.8rem 0;
+        }
+        .lang-item span:first-child { width: 70px; font-weight: 600; }
+        .dots { display: flex; gap: 0.3rem; }
+        .dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        .dot.filled { background: var(--accent); }
+
+        /* Timeline for education */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-primary);
+        }
+        .timeline-item h4 { color: var(--text-primary); }
+        .timeline-item .meta { color: var(--accent); font-size: 0.9rem; }
+
+        /* Referee card */
+        .ref-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        .ref-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            margin-top: 3rem;
+        }
+
+        /* ========== CHAT WIDGET ========== */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #000;
+            box-shadow: 0 8px 30px rgba(233, 177, 59, 0.4);
+            transition: all var(--transition);
+            position: relative;
+            z-index: 2001;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(233, 177, 59, 0.6);
+        }
+
+        .chat-toggle .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            border-radius: 50%;
+            border: 2px solid #000;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .chat-panel {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 380px;
+            max-height: 550px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .chat-panel.open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+
+        .chat-header {
+            background: var(--gradient-1);
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .chat-header .chat-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .chat-header .chat-info h4 {
+            color: #000;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .chat-header .chat-info span {
+            color: rgba(0,0,0,0.7);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .chat-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: #000;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.3rem;
+            opacity: 0.7;
+            transition: opacity var(--transition);
+        }
+
+        .chat-close:hover {
+            opacity: 1;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 300px;
+        }
+
+        .chat-body::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-body::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .message {
+            display: flex;
+            gap: 0.8rem;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.received .msg-bubble {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm);
+            color: var(--text-secondary);
+        }
+
+        .message.sent .msg-bubble {
+            background: rgba(233,177,59,0.15);
+            border: 1px solid rgba(233,177,59,0.3);
+            border-radius: var(--radius-sm) 0 var(--radius-sm) var(--radius-sm);
+            color: var(--text-primary);
+            margin-left: auto;
+        }
+
+        .msg-bubble {
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-width: 85%;
+        }
+
+        .msg-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        .chat-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .chat-form input,
+        .chat-form textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            resize: none;
+        }
+
+        .chat-form input:focus,
+        .chat-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(233,177,59,0.1);
+        }
+
+        .chat-form input::placeholder,
+        .chat-form textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .chat-form textarea {
+            min-height: 80px;
+        }
+
+        .chat-send-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--gradient-1);
+            color: #000;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all var(--transition);
+        }
+
+        .chat-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(233,177,59,0.4);
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .chat-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .chat-success i {
+            font-size: 3rem;
+            color: #34d399;
+            margin-bottom: 1rem;
+        }
+
+        .chat-success h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-success p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 0.3rem;
+            padding: 0.5rem 1rem;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+            30% { opacity: 1; transform: translateY(-5px); }
+        }
+
+        /* Responsive chat */
+        @media (max-width: 480px) {
+            .chat-panel {
+                width: calc(100vw - 40px);
+                right: -10px;
+            }
+            .chat-widget {
+                right: 15px;
+                bottom: 20px;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-contact { justify-content: center; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">SHS.</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#notebooks">Notebooks</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero -->
+        <header class="hero" id="about">
+            <div class="hero-image">
+                <div class="img-wrapper">
+                    <img src="shahin.jpeg" alt="Shahajalal Hossain Shahin" id="profileImg" onerror="handleImageError()">
+                    <div class="fallback-icon" id="profileFallback"><i class="fas fa-user-circle"></i></div>
+                </div>
+            </div>
+            <div class="hero-content">
+                <h1>Shahajalal Hossain Shahin</h1>
+                <p class="subtitle">AI/ML Engineer & Electronics Engineering Undergraduate</p>
+                <p class="bio">Passionate about deep learning, computer vision, and NLP. Building intelligent systems that bridge cutting‑edge research and real‑world applications. Pursuing happiness through continuous learning and impactful projects.</p>
+                <div class="hero-contact">
+                    <span><i class="fas fa-envelope"></i> hossainshahin230@gmail.com</span>
+                    <span><i class="fas fa-phone"></i> 01876327611</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Azimpur, Bangladesh</span>
+                    <a href="https://github.com/shahin509" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/shahinhossain11" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://www.kaggle.com/shahinhossain7611" target="_blank"><i class="fab fa-kaggle"></i> Kaggle</a>
+                </div>
+                <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                    <a href="#contact" class="btn btn-primary"><i class="fas fa-address-book"></i> Contact & Referees</a>
+                    <a href="Shahajalal_Hossain_Shahin_CV.pdf" class="btn btn-outline" download><i class="fas fa-download"></i> Download CV</a>
+                    <button class="btn btn-outline" onclick="openChat()"><i class="fas fa-comment-dots"></i> Send Message</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- About / Philosophy -->
+        <div class="section">
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fas fa-quote-right"></i> Life Philosophy</h3>
+                    <p style="font-style:italic; font-size:1.1rem;">"I'm aware of who I am and desire to pursue my happiness in everything."</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-trophy"></i> Achievements</h3>
+                    <p><i class="fas fa-award" style="color:var(--accent);"></i> <strong>College Achievement:</strong> First prize from director for outstanding academic performance.</p>
+                    <p style="margin-top:0.8rem;"><i class="fas fa-medal" style="color:var(--accent);"></i> <strong>University Achievement:</strong> Dean's award from VC.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="section">
+            <div class="card" style="max-width:500px;">
+                <h3><i class="fas fa-language"></i> Languages</h3>
+                <div class="lang-item"><span>Bangla</span> <div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span></div></div>
+                <div class="lang-item"><span>English</span> <div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span></div></div>
+            </div>
+        </div>
+
+        <!-- Education Timeline -->
+        <div class="section" id="education">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>B.Sc. in Electronics & Communication Engineering</h4>
+                    <p class="meta">Khulna University of Engineering & Technology (KUET), Khulna</p>
+                    <p>Jan 2019 – April 2024 | CGPA: 3.68 / 4.00</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Higher Secondary School Certificate (HSC)</h4>
+                    <p class="meta">Shaheed Police Smrity College, Dhaka</p>
+                    <p>May 2016 – June 2018 | GPA: 5.00 / 5.00</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Secondary School Certificate (SSC)</h4>
+                    <p class="meta">Hazi Ali Hossain High School, Dhaka</p>
+                    <p>Jan 2014 – Feb 2016 | GPA: 5.00 / 5.00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="section" id="skills">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-code"></i> Technical Skills</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid-2">
+                <div class="skill-group">
+                    <h4>Programming & Databases</h4>
+                    <div class="skill-pills"><span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span><span class="skill-pill">Oracle</span><span class="skill-pill">MySQL</span></div>
+                </div>
+                <div class="skill-group">
+                    <h4>Frameworks & Tools</h4>
+                    <div class="skill-pills"><span class="skill-pill">Flask</span><span class="skill-pill">Bootstrap</span><span class="skill-pill">VS Code</span><span class="skill-pill">GitHub</span><span class="skill-pill">PyCharm</span><span class="skill-pill">Jupyter</span><span class="skill-pill">Matlab</span></div>
+                </div>
+                <div class="skill-group">
+                    <h4>Data & AI</h4>
+                    <div class="skill-pills"><span class="skill-pill">Data Analytics</span><span class="skill-pill">Generative AI</span><span class="skill-pill">Machine Learning</span><span class="skill-pill">NLP</span><span class="skill-pill">Search Engine</span></div>
+                </div>
+                <div class="skill-group">
+                    <h4>Project Management & Others</h4>
+                    <div class="skill-pills"><span class="skill-pill">Jira</span><span class="skill-pill">Trello</span><span class="skill-pill">Power BI</span><span class="skill-pill">Tableau</span><span class="skill-pill">LaTeX</span><span class="skill-pill">Verilog</span><span class="skill-pill">Git</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="section" id="projects">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-laptop-code"></i> Featured Projects</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid-3">
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>myECGai</h3><p class="meta">AI ECG Monitoring</p><p>Deep learning heart disease classification using ECG signals. BPM, QRS, QT interval extraction.</p></div>
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>TV Channel Detection</h3><p class="meta">BSCL Project</p><p>AI system detecting TV logos from broadcast video streams.</p></div>
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>Llama2 Chatbot</h3><p class="meta">Medical NLP</p><p>Llama2-based chatbot for medical inquiries. <a href="https://github.com/shahin509/Chatbot-System-by-Employing-Llama2" target="_blank"><i class="fab fa-github"></i> Link</a></p></div>
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>GPT-2 from Scratch</h3><p class="meta">PyTorch Implementation</p><p>Transformer with top-k & temperature sampling, no high-level libs.</p></div>
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>LLM Fine‑tuning</h3><p class="meta">BERT, GPT, DeBERTa</p><p>Sentiment, summarization, long-doc. <a href="https://github.com/shahin509/LLM-Fine-Tuning-and-BERT-related-NLP-Projects" target="_blank"><i class="fab fa-github"></i> Link</a></p></div>
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>Face Attendance</h3><p class="meta">Recognition System</p><p>Camera-based attendance using face recognition. <a href="https://github.com/shahin509/Face-Recognition" target="_blank"><i class="fab fa-github"></i> Link</a></p></div>
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>Text Summarization</h3><p class="meta">FastAPI + Pegasus</p><p>MLflow, Docker, AWS deployment. <a href="https://github.com/shahin509/MLproject-3_Text-Summarization-NLP" target="_blank"><i class="fab fa-github"></i> Link</a></p></div>
+                <div class="card"><span class="badge badge-github">GitHub</span><h3>E‑commerce Website</h3><p class="meta">HTML/Tailwind/Flask</p><p>Mobile shop project. <a href="https://github.com/shahin509/Mobile-Shope-Ecommerce-Website" target="_blank"><i class="fab fa-github"></i> Link</a></p></div>
+            </div>
+        </div>
+
+        <!-- Additional Notebooks -->
+        <div class="section" id="notebooks">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-book-open"></i> Kaggle & Research Notebooks</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid-4">
+                <div class="card"><span class="badge badge-kaggle">Kaggle</span><h3>UniverseG Lite Mine</h3><p>Data mining & analysis.</p><a href="https://www.kaggle.com/code/shahinhossain7611/universeg-lite-mine" target="_blank"><i class="fab fa-kaggle"></i> View</a></div>
+                <div class="card"><span class="badge badge-kaggle">Kaggle</span><h3>Image Reconstruction</h3><p>Deep learning image recon.</p><a href="https://www.kaggle.com/code/shahinhossain7611/image-recon" target="_blank"><i class="fab fa-kaggle"></i> View</a></div>
+                <div class="card"><span class="badge badge-notebook">Notebook</span><h3>Earthquake Classification</h3><p>Regional seismic data.</p><span style="color:var(--text-muted);"><i class="fas fa-file-code"></i> earthquake.ipynb</span></div>
+                <div class="card"><span class="badge badge-notebook">Notebook</span><h3>ADHD Classification</h3><p>EEGNet on EEG data.</p><span style="color:var(--text-muted);"><i class="fas fa-file-code"></i> adhd‑eegnet.ipynb</span></div>
+                <div class="card"><span class="badge badge-notebook">Notebook</span><h3>Brain Tumor Segmentation</h3><p>DPCA-DDF-Net.</p><span style="color:var(--text-muted);"><i class="fas fa-file-code"></i> dpca-ddf-net.ipynb</span></div>
+            </div>
+        </div>
+
+        <!-- Research & Thesis -->
+        <div class="section" id="research">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-flask"></i> Research & Thesis</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid-2">
+                <div class="card"><span class="badge badge-research">Thesis</span><h3>Enhanced Hybrid IncepXt Ensemble</h3><p>Brain tumor MRI classification & segmentation using CNN ensemble & transfer learning.<br><a href="https://github.com/shahin509/Brain-Tumor-Detection" target="_blank"><i class="fab fa-github"></i> Repository</a></p></div>
+                <div class="card"><span class="badge badge-research">Paper</span><h3>Averaging Ensemble Method</h3><p>Multiclass brain tumor classification. DOI: 10.1109/RAAICON64172.2024.10928685<br><a href="https://www.researchgate.net/publication/390154261" target="_blank"><i class="fas fa-external-link-alt"></i> View</a></p></div>
+            </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="section" id="certifications">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-certificate"></i> Certifications</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid-3">
+                <div class="card"><h3>Generative AI</h3><p class="meta">Microsoft & LinkedIn</p><p>Proficiency in generative AI concepts.</p><a href="https://www.linkedin.com/learning/certificates/479e94fddca4489554a681823d0cc911d172b492cdda29183f9b98bed5a8e4d7" target="_blank"><i class="fas fa-external-link-alt"></i> Show credential</a></div>
+                <div class="card"><h3>Data Analysis</h3><p class="meta">Microsoft & LinkedIn</p><p>Data analysis & visualization.</p><a href="https://www.linkedin.com/learning/certificates/2abc7b51ef3f434954d080c1105030ff51f8f87dde448f4b79391f4a0f842734" target="_blank"><i class="fas fa-external-link-alt"></i> Show credential</a></div>
+                <div class="card"><h3>SQL Intermediate</h3><p class="meta">HackerRank · Aug 2024</p><p>Database architecture & optimization.</p><a href="https://www.testdome.com/certificates/1ba0202406fb42f6ab4f6835c5eb4ecb" target="_blank"><i class="fas fa-external-link-alt"></i> Show credential</a></div>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="section" id="experience">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="card">
+                <h3>AI/ML Engineer</h3>
+                <p class="meta">Teton Private Ltd</p>
+                <p><i class="fas fa-map-marker-alt"></i> Tropical Molla Tower, Dhaka 1212</p>
+                <p><i class="fas fa-calendar-alt"></i> Nov 2024 – Present</p>
+            </div>
+        </div>
+
+        <!-- Referees -->
+        <div class="section" id="contact">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-user-friends"></i> Referees</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid-2">
+                <div class="card ref-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Prof. Dr. SK. Shariful Alam</h3>
+                    <p>KUET, Khulna</p>
+                    <p><i class="fas fa-envelope"></i> ssalam@ece.kuet.ac.bd</p>
+                </div>
+                <div class="card ref-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Prof. Dr. Md. Faruque Hossain</h3>
+                    <p>KUET, Khulna</p>
+                    <p><i class="fas fa-envelope"></i> fhossain@ece.kuet.ac.bd</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2025 Shahajalal Hossain Shahin. Crafted with passion.</p>
+        </footer>
+    </div>
+
+    <!-- ========== CHAT WIDGET ========== -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-toggle" id="chatToggle" title="Chat with me!">
+            <i class="fas fa-comment-dots"></i>
+            <span class="notification-dot"></span>
+        </button>
+        <div class="chat-panel" id="chatPanel">
+            <div class="chat-header">
+                <div class="chat-avatar"><i class="fas fa-user"></i></div>
+                <div class="chat-info">
+                    <h4>Shahajalal Hossain Shahin</h4>
+                    <span><i class="fas fa-circle" style="color:#34d399; font-size:0.5rem;"></i> Online · replies within 24h</span>
+                </div>
+                <button class="chat-close" id="chatClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message received">
+                    <div>
+                        <div class="msg-bubble">
+                            👋 Hi there! I'm Shahajalal. Feel free to drop me a message — I'll get back to you via email within 24 hours.
+                            <span class="msg-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-footer" id="chatFooter">
+                <form class="chat-form" id="chatForm">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email Address" required>
+                    <textarea name="message" placeholder="Type your message here..." required></textarea>
+                    <button type="submit" class="chat-send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+                <div class="chat-success" id="chatSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Message Sent Successfully!</h4>
+                    <p>Thank you for reaching out. I'll reply to your email as soon as possible.</p>
+                    <button class="btn btn-outline" style="margin-top:1rem;" onclick="resetChat()">Send Another Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== PARTICLE BACKGROUND ==========
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const maxParticles = 80;
+        const connectionDist = 120;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2.5 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(233,177,59,0.5)';
+                ctx.fill();
+            }
+        }
+
+        for (let i=0; i<maxParticles; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            for (let i=0; i<particles.length; i++) {
+                for (let j=i+1; j<particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx*dx+dy*dy);
+                    if (dist < connectionDist) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(233,177,59,${0.15 * (1 - dist/connectionDist)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // ========== NAVIGATION ==========
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            const nav = document.getElementById('navLinks');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        function handleImageError() {
+            document.getElementById('profileImg').style.display = 'none';
+            document.getElementById('profileFallback').style.display = 'flex';
+        }
+        window.addEventListener('load', () => {
+            const img = document.getElementById('profileImg');
+            if (!img.complete || img.naturalHeight === 0) handleImageError();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior:'smooth' });
+            });
+        });
+
+        // ========== CHAT WIDGET ==========
+        const chatToggle = document.getElementById('chatToggle');
+        const chatPanel = document.getElementById('chatPanel');
+        const chatClose = document.getElementById('chatClose');
+        const chatBody = document.getElementById('chatBody');
+        const chatForm = document.getElementById('chatForm');
+        const chatSuccess = document.getElementById('chatSuccess');
+        const chatFooter = document.getElementById('chatFooter');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function openChat() {
+            chatPanel.classList.add('open');
+            chatToggle.querySelector('.notification-dot').style.display = 'none';
+        }
+
+        chatToggle.addEventListener('click', () => {
+            chatPanel.classList.toggle('open');
+            if (chatPanel.classList.contains('open')) {
+                chatToggle.querySelector('.notification-dot').style.display = 'none';
+            }
+        });
+
+        chatClose.addEventListener('click', () => {
+            chatPanel.classList.remove('open');
+        });
+
+        // Close chat when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('chatWidget').contains(e.target) && 
+                !e.target.closest('.btn-outline')?.textContent?.includes('Send Message')) {
+                chatPanel.classList.remove('open');
+            }
+        });
+
+        function resetChat() {
+            chatSuccess.style.display = 'none';
+            chatForm.style.display = 'flex';
+            chatForm.reset();
+            chatBody.innerHTML = `
+                <div class="message received">
+                    <div>
+                        <div class="msg-bubble">
+                            👋 Hi there! I'm Shahajalal. Feel free to drop me a message — I'll get back to you via email within 24 hours.
+                            <span class="msg-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Formspree endpoint - sends email to hossainshahin230@gmail.com
+        // Sign up for free at https://formspree.io and replace this URL
+        const FORMSPREE_URL = 'https://formspree.io/f/your-form-id'; 
+        
+        // Fallback: mailto link if Formspree is not set up
+        chatForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = chatForm.name.value.trim();
+            const email = chatForm.email.value.trim();
+            const message = chatForm.message.value.trim();
+            
+            if (!name || !email || !message) return;
+            
+            // Show typing indicator
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Add user message to chat
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            chatBody.innerHTML += `
+                <div class="message sent">
+                    <div>
+                        <div class="msg-bubble">
+                            ${escapeHtml(message)}
+                            <span class="msg-time">${timeStr} · You</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Try Formspree first, fallback to mailto
+            try {
+                const response = await fetch(FORMSPREE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        message: message,
+                        _subject: `Portfolio Message from ${name}`
+                    })
+                });
+                
+                if (response.ok) {
+                    showSuccess();
+                } else {
+                    fallbackMailto(name, email, message);
+                }
+            } catch (error) {
+                // Formspree not set up - use mailto fallback
+                fallbackMailto(name, email, message);
+            }
+        });
+        
+        function fallbackMailto(name, email, message) {
+            const subject = encodeURIComponent(`Portfolio Message from ${name}`);
+            const body = encodeURIComponent(
+                `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n---\nSent via portfolio contact form`
+            );
+            window.location.href = `mailto:hossainshahin230@gmail.com?subject=${subject}&body=${body}`;
+            showSuccess();
+        }
+        
+        function showSuccess() {
+            chatForm.style.display = 'none';
+            chatSuccess.style.display = 'block';
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            
+            // Add auto-reply
+            setTimeout(() => {
+                chatBody.innerHTML += `
+                    <div class="message received">
+                        <div>
+                            <div class="msg-bubble">
+                                ✅ Thanks for your message, ${escapeHtml(chatForm.name.value)}! I've received it and will reply to your email soon.
+                                <span class="msg-time">Just now</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 800);
+            
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
